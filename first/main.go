@@ -11,6 +11,20 @@ func addWordCount(wordCount map[string]int, word string) {
 }
 
 func countUniqueChars(s string) int {
+	seen := make(map[byte]bool)
+	count := 0
+
+	for i := 0; i < len(s); i++ {
+		if !seen[s[i]] {
+			count++
+			seen[s[i]] = true
+		}
+	}
+
+	return count
+}
+
+func countUniqueSubstring(s string) int {
 	ans := 0
 	emptyMap := make(map[string]int)
 	if s == "" {
@@ -23,13 +37,13 @@ func countUniqueChars(s string) int {
 		}
 	}
 	for word, _ := range emptyMap {
-		ans += len(word)
+		ans += countUniqueChars(word)
 	}
 	return ans
 }
 func main() {
 	s := "ABC"
-	fmt.Println(countUniqueChars(s))
+	fmt.Println(countUniqueSubstring(s))
 	s = "ABA"
-	fmt.Println(countUniqueChars(s))
+	fmt.Println(countUniqueSubstring(s))
 }
